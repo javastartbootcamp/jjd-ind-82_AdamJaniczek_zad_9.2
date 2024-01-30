@@ -2,6 +2,7 @@ package pl.javastart.task;
 
 public class Car extends Vehicle {
     private boolean airConditioning;
+    private static final double FUEL_CONSUMPTION_WITH_AC = 0.8;
 
     public Car(String name, double fuelTankCapacity, double fuelConsumption, boolean airConditioning) {
         super(name, fuelTankCapacity, fuelConsumption);
@@ -16,24 +17,23 @@ public class Car extends Vehicle {
         this.airConditioning = airConditioning;
     }
 
-    @Override
-    public double getFuelConsumption() {
-        double fuelConsumption = super.getFuelConsumption();
+    public double totalFuelConsumption() {
+        double totalFuelConsumption = getFuelConsumption();
         if (airConditioning) {
-            fuelConsumption += 0.8;
+            totalFuelConsumption += FUEL_CONSUMPTION_WITH_AC;
         }
-        return fuelConsumption;
+        return totalFuelConsumption;
     }
 
     @Override
     public double calculateRange() {
-        return (getFuelTankCapacity() / getFuelConsumption()) * 100;
+        return (getFuelTankCapacity() / totalFuelConsumption()) * 100;
     }
 
     public void displayCarInfo() {
-        System.out.println();
-        System.out.printf("Spalanie pojazdu %s: %.2f l/100 km\n", getName(), getFuelConsumption());
-        System.out.printf("Zasie wynosi: %.2f km", calculateRange());
-
+        System.out.println("_".repeat(10) + "\n");
+        System.out.printf("Spalanie pojazdu %s: %.2f l/100 km\n", getName(), totalFuelConsumption());
+        System.out.printf("Zasie wynosi: %.2f km\n", calculateRange());
+        System.out.println("_".repeat(10) + "\n");
     }
 }

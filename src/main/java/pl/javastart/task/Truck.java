@@ -2,6 +2,8 @@ package pl.javastart.task;
 
 public class Truck extends Car {
     private double cargoWeight;
+    private static final double FUEL_CONSUMPTION_WITH_AC = 1.6;
+    private static final double ADDITIONAL_FUEL_CONSUMPTION_PER_100KG = 0.5;
 
     public Truck(String name, double fuelTankCapacity, double fuelConsumption, boolean airConditioning, double cargoWeight) {
         super(name, fuelTankCapacity, fuelConsumption, airConditioning);
@@ -17,19 +19,14 @@ public class Truck extends Car {
     }
 
     @Override
-    public double getFuelConsumption() {
-        double resoult = super.getFuelConsumption();
+    public double totalFuelConsumption() {
+        double totalFuelConsumption = getFuelConsumption();
         if (isAirConditioning()) {
-            resoult += 0.8;
+            totalFuelConsumption += FUEL_CONSUMPTION_WITH_AC;
         }
         if (cargoWeight > 0) {
-            resoult += (cargoWeight / 100) * 0.5;
+            totalFuelConsumption += (cargoWeight / 100) * ADDITIONAL_FUEL_CONSUMPTION_PER_100KG;
         }
-        return resoult;
-    }
-
-    @Override
-    public double calculateRange() {
-        return (getFuelTankCapacity() / getFuelConsumption()) * 100;
+        return totalFuelConsumption;
     }
 }

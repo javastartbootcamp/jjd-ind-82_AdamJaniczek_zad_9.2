@@ -14,7 +14,6 @@ public class Test {
             car.displayCarInfo();
             car.setAirConditioning(false);
         }
-        System.out.println();
         for (Car car : cars) {
             car.displayCarInfo();
         }
